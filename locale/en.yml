@@ -5,3 +5,6 @@ imdong-visible-to-op-only:
     my_cool_key: My Cool Key
 
   forum:
+    button_tooltip_only_op_see: Only OP See
+    hidden_content_only_op_see: This content is only visible to the OP
+    only_op_see: Only OP See

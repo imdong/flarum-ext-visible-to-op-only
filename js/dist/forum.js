@@ -39,14 +39,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdong/flarum-ext-visible-to-op-only', function () {
+flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdong-visible-to-op-only', function () {
   (0,flarum_common_extend__WEBPACK_IMPORTED_MODULE_1__.extend)((flarum_common_components_TextEditor__WEBPACK_IMPORTED_MODULE_2___default().prototype), 'toolbarItems', function (items) {
     var _this = this;
     if ((flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().composer).body.attrs.discussion) {
       items.add("only-op-see", m((flarum_common_components_TextEditorButton__WEBPACK_IMPORTED_MODULE_3___default()), {
         onclick: function onclick() {
           var range = _this.attrs.composer.editor.getSelectionRange(),
-            select_str = flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().composer.editor.el.value.substring(range[0], range[1]);
+            select_str = _this.attrs.composer.editor.el.value.substring(range[0], range[1]);
           console.log(range, select_str);
 
           // 获取选中的内容
@@ -54,7 +54,7 @@ flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdong
           _this.attrs.composer.editor.moveCursorTo(range[1] + select_str.length + 1);
         },
         icon: "fas fa-user-shield"
-      }, flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans("imdong-visible-to-op-only.forum.button_tooltip_only_op_see")));
+      }, this.attrs.translator.trans("imdong-visible-to-op-only.forum.button_tooltip_only_op_see")));
     }
   });
 });

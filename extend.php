@@ -11,7 +11,9 @@
 
 namespace ImDong\FlarumExtVisibleToOpOnly;
 
+use Flarum\Api\Serializer\BasicPostSerializer;
 use Flarum\Extend;
+use ImDong\FlarumExtVisibleToOpOnly\Attributes\PostAttributes;
 use s9e\TextFormatter\Configurator;
 use Flarum\Api\Serializer\PostSerializer;
 
@@ -21,20 +23,25 @@ return [
         ->css(__DIR__ . '/less/forum.less'),
 
     (new Extend\Frontend('admin'))
-        ->js(__DIR__ . '/js/dist/admin.js')
-        ->css(__DIR__ . '/less/admin.less'),
+        ->js(__DIR__ . '/js/dist/admin.js'),
 
+    // 语言支持
     new Extend\Locales(__DIR__ . '/locale'),
 
-    // 添加 op 可见
+    // 添加 [op] 代码支持
     (new Extend\Formatter)
         ->configure(function (Configurator $config) {
             $config->BBcodes->addCustom(
-                '[OP]{TEXT}[/Op]',
+                '[OP]{TEXT}[/OP]',
                 '<onlyOpSee>{TEXT}</onlyOpSee>'
             );
         }),
 
+    // 替换回复中的隐藏内容
     (new Extend\ApiSerializer(PostSerializer::class))
         ->attributes(ReplaceCode::class),
+
+    // 给主题添加是否能查看 post 的权限
+    (new Extend\ApiSerializer(BasicPostSerializer::class))
+        ->attributes(PostAttributes::class),
 ];

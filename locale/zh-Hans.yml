@@ -1,0 +1,8 @@
+imdong-visible-to-op-only:
+  admin:
+    permissions:
+      view-post: 查看回复
+  forum:
+    button_tooltip_only_op_see: 仅 OP 可见
+    hidden_content_only_op_see: 此内容仅 OP 可见
+    only_op_see: 仅 OP 可见

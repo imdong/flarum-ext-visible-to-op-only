@@ -1,9 +1,7 @@
 imdong-visible-to-op-only:
-  # For more details on the format
-  # Checkout https://docs.flarum.org/extend/i18n/#appendix-a-standard-key-format
   admin:
-    my_cool_key: My Cool Key
-
+    permissions:
+      view-post: View Post
   forum:
     button_tooltip_only_op_see: Only OP See
     hidden_content_only_op_see: This content is only visible to the OP

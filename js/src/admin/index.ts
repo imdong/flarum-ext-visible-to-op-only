@@ -1,5 +1,16 @@
 import app from 'flarum/admin/app';
 
-app.initializers.add('imdong/flarum-ext-visible-to-op-only', () => {
-  console.log('[imdong/flarum-ext-visible-to-op-only] Hello, admin!');
+app.initializers.add('imdong-visible-to-op-only', () => {
+
+  app.extensionData
+    .for('imdong-visible-to-op-only')
+    .registerPermission(
+      {
+        icon: 'fas fa-user-shield',
+        label: app.translator.trans('imdong-visible-to-op-only.admin.permissions.view-post'),
+        permission: 'discussion.viewPosts',
+      },
+      'view'
+    );
+
 });

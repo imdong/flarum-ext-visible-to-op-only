@@ -13,8 +13,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_admin_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flarum/admin/app */ "flarum/admin/app");
 /* harmony import */ var flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flarum_admin_app__WEBPACK_IMPORTED_MODULE_0__);
 
-flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdong/flarum-ext-visible-to-op-only', function () {
-  console.log('[imdong/flarum-ext-visible-to-op-only] Hello, admin!');
+flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdong-visible-to-op-only', function () {
+  flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().extensionData["for"]('imdong-visible-to-op-only').registerPermission({
+    icon: 'fas fa-user-shield',
+    label: flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans('imdong-visible-to-op-only.admin.permissions.view-post'),
+    permission: 'discussion.viewPosts'
+  }, 'view');
 });
 
 /***/ }),

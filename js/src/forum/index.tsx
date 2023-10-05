@@ -5,7 +5,7 @@ import TextEditorButton from "flarum/common/components/TextEditorButton";
 
 app.initializers.add('imdong-visible-to-op-only', () => {
   extend(TextEditor.prototype, 'toolbarItems', function (items) {
-    if (app.composer.body.attrs.discussion) {
+    if (app.composer.body.attrs.discussion || app.composer.body.attrs.post) {
       items.add(
         "only-op-see",
         <TextEditorButton

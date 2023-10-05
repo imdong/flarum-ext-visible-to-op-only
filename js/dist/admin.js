@@ -17,7 +17,8 @@ flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdong
   flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().extensionData["for"]('imdong-visible-to-op-only').registerPermission({
     icon: 'fas fa-user-shield',
     label: flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans('imdong-visible-to-op-only.admin.permissions.view-post'),
-    permission: 'discussion.viewPosts'
+    permission: 'discussion.viewPosts',
+    allowGuest: true
   }, 'view');
 });
 

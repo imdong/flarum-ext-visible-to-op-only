@@ -51,10 +51,10 @@ flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdong
 
           // 获取选中的内容
           _this.attrs.composer.editor.insertBetween(range[0], range[1], "[OP]" + select_str + "[/OP]");
-          _this.attrs.composer.editor.moveCursorTo(range[1] + select_str.length + 1);
+          _this.attrs.composer.editor.moveCursorTo(range[0] + select_str.length + 4);
         },
         icon: "fas fa-user-shield"
-      }, this.attrs.translator.trans("imdong-visible-to-op-only.forum.button_tooltip_only_op_see")));
+      }, flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans("imdong-visible-to-op-only.forum.button_tooltip_only_op_see")));
     }
   });
 });

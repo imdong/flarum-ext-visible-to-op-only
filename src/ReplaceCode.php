@@ -45,10 +45,11 @@ class ReplaceCode
     public function onlyOpSee(PostSerializer $serializer, AbstractModel $post, array $attributes)
     {
         $actor = $serializer->getActor();
+        $discussion = $post->discussion;
 
-        // 帖子作者和管理员可见
-        $replied = !$actor->isGuest();
-        if ($actor->isAdmin()) {
+        // 管理员 贴主 回复作者
+        $replied = false;
+        if ($actor->isAdmin() || $discussion->user_id == $actor->id || $post->user_id == $actor->id) {
             $replied = true;
         }
 

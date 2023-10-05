@@ -1,41 +1,12 @@
 .onlyopsee {
   border-radius: 3px;
-  border: 1px solid #f00;
+  border: 1px dashed #00a1ff;
   padding: 10px;
-  background-color: #fff4f4;
+  background-color: #e5f3ff;
 }
 
-@keyframes animate {
-  0%,
-  10%,
-  100% {
-    width: 0;
-  }
-
-  70%,
-  90% {
-    width: 100%;
-  }
-}
-
-.onlyopsee_title {
-  color: #f00;
-  font-size: 35px;
+.onlyopsee_title,.onlyopsee_alert {
+  color: #305dff;
   position: relative;
-  text-transform: uppercase;
-  -webkit-text-stroke: 0.06vw #ff829f;
-}
-
-.onlyopsee_title::before {
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  color: #ff3ba8;
-  overflow: hidden;
-  position: absolute;
-  content: attr(data-text);
-  border-right: 3px solid #ff89a5;
-  -webkit-text-stroke: 0vw #f7f7fe;
-  animation: animate 6s linear infinite;
+  text-align: center;
 }

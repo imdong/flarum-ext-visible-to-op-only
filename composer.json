@@ -27,7 +27,7 @@
             "category": "feature",
             "icon": {
                 "name": "fas fa-user-shield",
-                "color": "#62f1a6",
+                "color": "#305dff",
                 "backgroundColor": "#ff89a5"
             }
         },

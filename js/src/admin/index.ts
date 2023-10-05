@@ -9,6 +9,7 @@ app.initializers.add('imdong-visible-to-op-only', () => {
         icon: 'fas fa-user-shield',
         label: app.translator.trans('imdong-visible-to-op-only.admin.permissions.view-post'),
         permission: 'discussion.viewPosts',
+        allowGuest: true,
       },
       'view'
     );

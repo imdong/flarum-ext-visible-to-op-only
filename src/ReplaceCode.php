@@ -26,7 +26,7 @@ class ReplaceCode
 
         if (isset($attributes["contentHtml"])) {
             // 仅楼主可见
-            if (str_contains($attributes["contentHtml"], '<onlyopsee>') || !$attributes['canViewPosts']) {
+            if (str_contains($attributes["contentHtml"], '<onlyopsee>')) {
                 $attributes = $this->onlyOpSee($serializer, $post, $attributes);
             }
         }
@@ -47,7 +47,7 @@ class ReplaceCode
         $actor = $serializer->getActor();
 
         // 帖子作者和管理员可见
-        $replied = $attributes['canViewPosts'];
+        $replied = !$actor->isGuest();
         if ($actor->isAdmin()) {
             $replied = true;
         }

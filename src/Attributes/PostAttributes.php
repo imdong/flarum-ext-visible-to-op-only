@@ -41,9 +41,10 @@ class PostAttributes
 
         // 如果是置顶贴也可以看到隐藏回复
         $allowViewSticky = !!$this->settings->get(Defined::$extPrefix . '.allowViewSticky');
-        $isSticky = $discussion->getAttribute('is_sticky');
-        $isStickiest = $discussion->getAttribute('is_stickiest');
-        if ($allowViewSticky && ($isSticky || $isStickiest)) {
+        $isSticky = $discussion->getAttribute('is_sticky'); // 置顶
+        $isStickiest = $discussion->getAttribute('is_stickiest'); // 超级置顶
+        $isTagSticky = $discussion->getAttribute('is_tag_sticky'); // 标签内置顶
+        if ($allowViewSticky && ($isSticky || $isStickiest || $isTagSticky)) {
             $canViewPosts = true;
         }
 

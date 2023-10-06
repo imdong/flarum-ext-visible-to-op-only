@@ -28,7 +28,15 @@ return [
     // 语言支持
     new Extend\Locales(__DIR__ . '/locale'),
 
-    // 添加 [op] 代码支持
+    // 给主题添加是否能查看 post 的权限
+    (new Extend\ApiSerializer(BasicPostSerializer::class))
+        ->attributes(PostAttributes::class),
+
+    // 替换回复中的隐藏内容
+    (new Extend\ApiSerializer(PostSerializer::class))
+        ->attributes(ReplaceCode::class),
+
+    // 添加 [OP] 代码支持
     (new Extend\Formatter)
         ->configure(function (Configurator $config) {
             $config->BBcodes->addCustom(
@@ -36,12 +44,4 @@ return [
                 '<onlyOpSee>{TEXT}</onlyOpSee>'
             );
         }),
-
-    // 替换回复中的隐藏内容
-    (new Extend\ApiSerializer(PostSerializer::class))
-        ->attributes(ReplaceCode::class),
-
-    // 给主题添加是否能查看 post 的权限
-    (new Extend\ApiSerializer(BasicPostSerializer::class))
-        ->attributes(PostAttributes::class),
 ];

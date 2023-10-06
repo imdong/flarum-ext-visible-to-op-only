@@ -10,25 +10,33 @@ use Flarum\Database\AbstractModel;
 
 class ReplaceCode
 {
+    /**
+     * @var mixed|TranslatorInterface
+     */
+    private $translator;
+
     public function __construct()
     {
-        $this->settings = resolve(SettingsRepositoryInterface::class);
         $this->translator = resolve(TranslatorInterface::class);
     }
 
-    public function __invoke(PostSerializer $serializer, AbstractModel $post, array $attributes)
+    /**
+     * @param PostSerializer $serializer
+     * @param AbstractModel $post
+     * @param array $attributes
+     * @return array
+     */
+    public function __invoke(PostSerializer $serializer, AbstractModel $post, array $attributes): array
     {
-        // 是否无权限查看帖子内容
-        if (!$attributes['canViewPosts']) {
+        // 是否有权限查看回复内容
+        if (!$attributes['canOpOnlyViewPosts']) {
             $attributes["contentHtml"] = $this->getTipsDeny();
             return $attributes;
         }
 
-        if (isset($attributes["contentHtml"])) {
-            // 仅楼主可见
-            if (str_contains($attributes["contentHtml"], '<onlyopsee>')) {
-                $attributes = $this->onlyOpSee($serializer, $post, $attributes);
-            }
+        // 处理回复中的隐藏内容
+        if (isset($attributes["contentHtml"]) && str_contains($attributes["contentHtml"], '<onlyopsee>')) {
+            $attributes = $this->onlyOpSee($serializer, $post, $attributes);
         }
 
         return $attributes;
@@ -40,25 +48,14 @@ class ReplaceCode
      * @param PostSerializer $serializer
      * @param AbstractModel $post
      * @param array $attributes
-     * @return mixed
+     * @return array
      */
-    public function onlyOpSee(PostSerializer $serializer, AbstractModel $post, array $attributes)
+    public function onlyOpSee(PostSerializer $serializer, AbstractModel $post, array $attributes): array
     {
-        $actor = $serializer->getActor();
-        $discussion = $post->discussion;
-
-        // 是否有查看隐藏内容的权限
-        $allowViewHidePosts = $actor->can('allowViewHidePosts', $discussion);
-
-        // 管理员 贴主 回复作者
-        $replied = false;
-        if ($actor->isAdmin() || $allowViewHidePosts || $discussion->user_id == $actor->id || $post->user_id == $actor->id) {
-            $replied = true;
-        }
-
+        // 替换隐藏部分内容
         $attributes["contentHtml"] = preg_replace(
             '#<onlyopsee>(.*?)<\/onlyopsee>#is',
-            $replied ? $this->getTipsAllow() : $this->getTipsDeny(),
+            $attributes['canOpOnlyViewHidePosts'] ? $this->getTipsAllow() : $this->getTipsDeny(),
             $attributes["contentHtml"]
         );
 
@@ -66,6 +63,8 @@ class ReplaceCode
     }
 
     /**
+     * 获取允许显示时的模板
+     *
      * @return string
      */
     private function getTipsAllow(): string
@@ -77,6 +76,8 @@ class ReplaceCode
     }
 
     /**
+     * 获取拒绝显示时的模板
+     *
      * @return string
      */
     private function getTipsDeny(): string

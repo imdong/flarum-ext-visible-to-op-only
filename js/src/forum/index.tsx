@@ -2,8 +2,9 @@ import app from 'flarum/forum/app';
 import {extend} from "flarum/common/extend";
 import TextEditor from "flarum/common/components/TextEditor";
 import TextEditorButton from "flarum/common/components/TextEditorButton";
+import common from "../common";
 
-app.initializers.add('imdong-visible-to-op-only', () => {
+app.initializers.add(common.extPrefix, () => {
   extend(TextEditor.prototype, 'toolbarItems', function (items) {
     if (app.composer.body.attrs.discussion || app.composer.body.attrs.post) {
       items.add(

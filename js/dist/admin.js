@@ -12,18 +12,31 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_admin_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flarum/admin/app */ "flarum/admin/app");
 /* harmony import */ var flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flarum_admin_app__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common */ "./src/common/index.ts");
 
-flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdong-visible-to-op-only', function () {
-  flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().extensionData["for"]('imdong-visible-to-op-only').registerPermission({
+
+flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add(_common__WEBPACK_IMPORTED_MODULE_1__["default"].extPrefix, function () {
+  flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().extensionData["for"](_common__WEBPACK_IMPORTED_MODULE_1__["default"].extPrefix)
+  // 添加权限 查看回复
+  .registerPermission({
     icon: 'fas fa-user-shield',
-    label: flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans('imdong-visible-to-op-only.admin.permissions.view-post'),
-    permission: 'discussion.viewPosts',
+    label: flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans(_common__WEBPACK_IMPORTED_MODULE_1__["default"].extPrefix + '.admin.permissions.view-post'),
+    permission: "discussion." + _common__WEBPACK_IMPORTED_MODULE_1__["default"].extPrefix + ".viewPosts",
     allowGuest: true
-  }, 'view').registerPermission({
+  }, 'view')
+  // 添加权限 查看回复隐藏内容
+  .registerPermission({
     icon: 'far fa-eye',
-    label: flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans('imdong-visible-to-op-only.admin.permissions.allow-view-hide-post'),
-    permission: 'discussion.allowViewHidePosts'
-  }, 'start');
+    label: flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans(_common__WEBPACK_IMPORTED_MODULE_1__["default"].extPrefix + '.admin.permissions.view-hide-post'),
+    permission: "discussion." + _common__WEBPACK_IMPORTED_MODULE_1__["default"].extPrefix + ".viewHidePosts"
+  }, 'start')
+  // 注册配置 允许查看置顶帖
+  .registerSetting({
+    setting: _common__WEBPACK_IMPORTED_MODULE_1__["default"].extPrefix + '.allowViewSticky',
+    type: 'boolean',
+    label: flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans(_common__WEBPACK_IMPORTED_MODULE_1__["default"].extPrefix + '.admin.settings.allow-view-sticky'),
+    help: flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans(_common__WEBPACK_IMPORTED_MODULE_1__["default"].extPrefix + '.admin.settings.allow-view-sticky-text')
+  });
 });
 
 /***/ }),
@@ -36,11 +49,11 @@ flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdong
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var flarum_common_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flarum/common/app */ "flarum/common/app");
-/* harmony import */ var flarum_common_app__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flarum_common_app__WEBPACK_IMPORTED_MODULE_0__);
-
-flarum_common_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdong/flarum-ext-visible-to-op-only', function () {
-  console.log('[imdong/flarum-ext-visible-to-op-only] Hello, forum and admin!');
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  extPrefix: 'imdong-visible-to-op-only'
 });
 
 /***/ }),
@@ -53,17 +66,6 @@ flarum_common_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdon
 
 "use strict";
 module.exports = flarum.core.compat['admin/app'];
-
-/***/ }),
-
-/***/ "flarum/common/app":
-/*!***************************************************!*\
-  !*** external "flarum.core.compat['common/app']" ***!
-  \***************************************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = flarum.core.compat['common/app'];
 
 /***/ })
 

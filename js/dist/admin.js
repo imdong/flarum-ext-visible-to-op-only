@@ -19,7 +19,11 @@ flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add('imdong
     label: flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans('imdong-visible-to-op-only.admin.permissions.view-post'),
     permission: 'discussion.viewPosts',
     allowGuest: true
-  }, 'view');
+  }, 'view').registerPermission({
+    icon: 'far fa-eye',
+    label: flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans('imdong-visible-to-op-only.admin.permissions.allow-view-hide-post'),
+    permission: 'discussion.allowViewHidePosts'
+  }, 'start');
 });
 
 /***/ }),

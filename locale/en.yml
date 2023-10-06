@@ -2,6 +2,7 @@ imdong-visible-to-op-only:
   admin:
     permissions:
       view-post: View Post
+      allow-view-hide-post: View hidden content
   forum:
     button_tooltip_only_op_see: Only OP See
     hidden_content_only_op_see: This content is only visible to the OP

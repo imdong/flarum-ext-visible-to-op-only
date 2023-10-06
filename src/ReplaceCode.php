@@ -47,9 +47,12 @@ class ReplaceCode
         $actor = $serializer->getActor();
         $discussion = $post->discussion;
 
+        // 是否有查看隐藏内容的权限
+        $allowViewHidePosts = $actor->can('allowViewHidePosts', $discussion);
+
         // 管理员 贴主 回复作者
         $replied = false;
-        if ($actor->isAdmin() || $discussion->user_id == $actor->id || $post->user_id == $actor->id) {
+        if ($actor->isAdmin() || $allowViewHidePosts || $discussion->user_id == $actor->id || $post->user_id == $actor->id) {
             $replied = true;
         }
 

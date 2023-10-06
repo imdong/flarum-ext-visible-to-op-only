@@ -16,7 +16,7 @@ class PostAttributes
         $discussion = $post->discussion;
 
         // 检查是否有查看的权限
-        $canViewPosts = $actor->can('discussion.viewPosts', $discussion);
+        $canViewPosts = $actor->can('viewPosts', $discussion);
 
         // 如果自己是作者也可以看
         if ($actor->id == $post->user_id || $discussion->user_id == $actor->id) {

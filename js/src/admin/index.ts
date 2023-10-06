@@ -12,6 +12,14 @@ app.initializers.add('imdong-visible-to-op-only', () => {
         allowGuest: true,
       },
       'view'
+    )
+    .registerPermission(
+      {
+        icon: 'far fa-eye',
+        label: app.translator.trans('imdong-visible-to-op-only.admin.permissions.allow-view-hide-post'),
+        permission: 'discussion.allowViewHidePosts',
+      },
+      'start'
     );
 
 });

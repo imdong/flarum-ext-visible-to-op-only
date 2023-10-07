@@ -6,6 +6,7 @@ use Flarum\Api\Serializer\BasicPostSerializer;
 use Flarum\Post\Post;
 use Flarum\Settings\SettingsRepositoryInterface;
 use ImDong\FlarumExtVisibleToOpOnly\Common\Defined;
+use ImDong\FlarumExtVisibleToOpOnly\ReplaceCode;
 
 class PostAttributes
 {
@@ -46,6 +47,12 @@ class PostAttributes
         $isTagSticky = $discussion->getAttribute('is_tag_sticky'); // 标签内置顶
         if ($allowViewSticky && ($isSticky || $isStickiest || $isTagSticky)) {
             $canViewPosts = true;
+        }
+
+        // 如果不允许看到回复内容则直接屏蔽掉
+        if (!$canViewPosts) {
+            $attributes["contentHtml"] = resolve(ReplaceCode::class)->getTipsDeny();
+            return $attributes;
         }
 
         // 组成结构

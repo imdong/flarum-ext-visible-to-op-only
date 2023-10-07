@@ -67,7 +67,7 @@ class ReplaceCode
      *
      * @return string
      */
-    private function getTipsAllow(): string
+    public function getTipsAllow(): string
     {
         return sprintf(
             '<div class="onlyopsee"><div class="onlyopsee_title">%s</div>$1</div>',
@@ -80,7 +80,7 @@ class ReplaceCode
      *
      * @return string
      */
-    private function getTipsDeny(): string
+    public function getTipsDeny(): string
     {
         return sprintf(
             '<div class="onlyopsee"><div class="onlyopsee_alert">%s</div></div>',

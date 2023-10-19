@@ -15,7 +15,6 @@ use Flarum\Api\Serializer\BasicPostSerializer;
 use Flarum\Extend;
 use ImDong\FlarumExtVisibleToOpOnly\Attributes\PostAttributes;
 use s9e\TextFormatter\Configurator;
-use Flarum\Api\Serializer\PostSerializer;
 
 return [
     (new Extend\Frontend('forum'))
@@ -31,10 +30,6 @@ return [
     // 给主题添加是否能查看 post 的权限
     (new Extend\ApiSerializer(BasicPostSerializer::class))
         ->attributes(PostAttributes::class),
-
-    // 替换回复中的隐藏内容
-    (new Extend\ApiSerializer(PostSerializer::class))
-        ->attributes(ReplaceCode::class),
 
     // 添加 [OP] 代码支持
     (new Extend\Formatter)

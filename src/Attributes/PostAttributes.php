@@ -82,7 +82,7 @@ class PostAttributes
     {
         // 替换隐藏部分内容
         $attributes["contentHtml"] = preg_replace(
-            '#<(onlyopsee|OP)>(.*?)<\/(onlyopsee|OP)>#is',
+            '#<onlyopsee>(.*?)<\/onlyopsee>#is',
             $canViewHidePosts ? $this->getTipsAllow() : $this->getTipsDeny(),
             $attributes["contentHtml"]
         );

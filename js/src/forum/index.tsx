@@ -1,29 +1,27 @@
 import app from 'flarum/forum/app';
-import {extend} from "flarum/common/extend";
-import TextEditor from "flarum/common/components/TextEditor";
-import TextEditorButton from "flarum/common/components/TextEditorButton";
+import {override} from "flarum/common/extend";
+import ReplyComposer from "flarum/forum/components/ReplyComposer";
 import common from "../common";
+import renderOnlyOpSee from "./renderOnlyOpSee";
+import addOnlyOpSeeBtnToTextEditeor from "./addOnlyOpSeeBtnToTextEditeor";
 
 app.initializers.add(common.extPrefix, () => {
-  extend(TextEditor.prototype, 'toolbarItems', function (items) {
-    if (app.composer.body.attrs.discussion || app.composer.body.attrs.post) {
-      items.add(
-        "only-op-see",
-        <TextEditorButton
-          onclick={() => {
-            const range = this.attrs.composer.editor.getSelectionRange(),
-              select_str = this.attrs.composer.editor.el.value.substring(range[0], range[1]);
-            console.log(range, select_str)
 
-            // 获取选中的内容
-            this.attrs.composer.editor.insertBetween(range[0], range[1], `[OP]${select_str}[/OP]`);
-            this.attrs.composer.editor.moveCursorTo(range[0] + select_str.length + 4);
-          }}
-          icon="fas fa-user-shield"
-        >
-          {app.translator.trans("imdong-visible-to-op-only.forum.button_tooltip_only_op_see")}
-        </TextEditorButton>
-      );
+  // 添加按钮到工具栏
+  addOnlyOpSeeBtnToTextEditeor()
+
+  // 各种前端渲染
+  renderOnlyOpSee();
+
+  // 包含空结构就不要提交了
+  override(ReplyComposer.prototype, 'onsubmit', function (original, content) {
+    if (/\[OP\]\s*\[\/OP\]/.test(content)) {
+      app.alerts.show({
+        type: "error",
+      }, app.translator.trans('imdong-visible-to-op-only.forum.editor_empty_tips'));
+      return false
     }
+
+    original()
   })
 });

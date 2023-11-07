@@ -10,3 +10,4 @@ imdong-visible-to-op-only:
     button_tooltip_only_op_see: 仅楼主可见
     hidden_content_only_op_see: 此内容仅楼主可见
     only_op_see: 仅楼主可见
+    editor_empty_tips: 似乎 “仅楼主可见” 区域内没有内容

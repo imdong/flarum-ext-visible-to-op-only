@@ -56,9 +56,13 @@ class PostAttributes
             $canViewPosts = true;
         }
 
+        $attributes['canViewPosts'] = $canViewPosts;
+        $attributes['canViewHidePosts'] = $canViewHidePosts;
+
         // 如果不允许看到回复内容则直接屏蔽掉
         if (!$canViewPosts) {
-            $attributes["contentHtml"] = $this->getTipsDeny();
+            $attributes['content'] = '';
+            $attributes["contentHtml"] = '';
             return $attributes;
         }
 
@@ -80,39 +84,19 @@ class PostAttributes
      */
     public function onlyOpSee(bool $canViewHidePosts, array $attributes): array
     {
+        // 如果可见就不变了
+        if ($canViewHidePosts) {
+            return $attributes;
+        }
+
         // 替换隐藏部分内容
         $attributes["contentHtml"] = preg_replace(
-            '#<onlyopsee>(.*?)<\/onlyopsee>#is',
-            $canViewHidePosts ? $this->getTipsAllow() : $this->getTipsDeny(),
+            '#<onlyopsee>(.*?)<\/onlyopsee>#',
+            '<onlyopsee></onlyopsee>',
             $attributes["contentHtml"]
         );
 
         return $attributes;
     }
 
-    /**
-     * 获取允许显示时的模板
-     *
-     * @return string
-     */
-    public function getTipsAllow(): string
-    {
-        return sprintf(
-            '<div class="onlyopsee"><div class="onlyopsee_title">%s</div>$1</div>',
-            $this->translator->trans('imdong-visible-to-op-only.forum.only_op_see')
-        );
-    }
-
-    /**
-     * 获取拒绝显示时的模板
-     *
-     * @return string
-     */
-    public function getTipsDeny(): string
-    {
-        return sprintf(
-            '<div class="onlyopsee"><div class="onlyopsee_alert">%s</div></div>',
-            $this->translator->trans('imdong-visible-to-op-only.forum.hidden_content_only_op_see')
-        );
-    }
 }

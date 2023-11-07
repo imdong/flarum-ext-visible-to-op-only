@@ -10,3 +10,4 @@ imdong-visible-to-op-only:
     button_tooltip_only_op_see: Only OP See
     hidden_content_only_op_see: This content is only visible to the OP
     only_op_see: Only OP See
+    editor_empty_tips: Code [OP][/OP] is empty in the middle

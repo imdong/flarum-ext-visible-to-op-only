@@ -167,7 +167,7 @@ function onlyOpSee(innerHTML, canViewHidePosts) {
 }
 function render(canViewHidePosts, text) {
   var title = (0,_common__WEBPACK_IMPORTED_MODULE_2__.trans)(canViewHidePosts ? "forum.only_op_see" : 'forum.hidden_content_only_op_see');
-  return "<div class=\"onlyopsee\" data-title-content=\"" + title + "\" >" + text + "</div>";
+  return "<div class=\"onlyopsee\" data-title-content=\"" + title + "\" >" + (text || "") + "</div>";
 }
 function renderOnlyOpSee() {
   (0,flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__.override)((flarum_common_models_Post__WEBPACK_IMPORTED_MODULE_1___default().prototype), 'contentHtml', function (original, content) {

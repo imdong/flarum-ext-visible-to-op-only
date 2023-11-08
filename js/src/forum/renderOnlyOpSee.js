@@ -10,7 +10,7 @@ function onlyOpSee(innerHTML, canViewHidePosts) {
 
 function render(canViewHidePosts, text) {
   let title = trans(canViewHidePosts ? `forum.only_op_see` : 'forum.hidden_content_only_op_see')
-  return `<div class="onlyopsee" data-title-content="${title}" >${text}</div>`
+  return `<div class="onlyopsee" data-title-content="${title}" >${text || ""}</div>`
 }
 
 export default function renderOnlyOpSee() {

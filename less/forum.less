@@ -5,14 +5,10 @@
   border: 1px dashed #f5aca6;
 }
 
-.onlyopsee_title,.onlyopsee_alert {
-  all: initial;
+.onlyopsee::before {
+  content: attr(data-title-content);
   display: block;
   color: #f54b4b;
   text-align: center;
   font-size: small;
-}
-
-.onlyopsee_alert {
-  color: red;
 }

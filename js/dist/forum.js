@@ -11,10 +11,42 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   extPrefix: () => (/* binding */ extPrefix),
+/* harmony export */   key: () => (/* binding */ key),
+/* harmony export */   trans: () => (/* binding */ trans)
 /* harmony export */ });
+/* harmony import */ var flarum_common_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flarum/common/app */ "flarum/common/app");
+/* harmony import */ var flarum_common_app__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flarum_common_app__WEBPACK_IMPORTED_MODULE_0__);
+
+/**
+ * 统一前缀
+ */
+var extPrefix = 'imdong-visible-to-op-only';
+
+/**
+ * 获取一个 key
+ * @param key
+ */
+function key(key) {
+  return extPrefix + "." + key.replace(/^\.*/, '');
+}
+
+/**
+ * 获取特定 key 的翻译
+ * @param id
+ * @param parameters
+ */
+function trans(id, parameters) {
+  if (parameters === void 0) {
+    parameters = {};
+  }
+  return flarum_common_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans(key(id), parameters);
+}
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  extPrefix: 'imdong-visible-to-op-only'
+  extPrefix: extPrefix,
+  key: key,
+  trans: trans
 });
 
 /***/ }),
@@ -38,6 +70,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_common_components_TextEditorButton__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_common_components_TextEditorButton__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var flarum_common_utils_styleSelectedText__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flarum/common/utils/styleSelectedText */ "flarum/common/utils/styleSelectedText");
 /* harmony import */ var flarum_common_utils_styleSelectedText__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flarum_common_utils_styleSelectedText__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common */ "./src/common/index.ts");
+
 
 
 
@@ -56,7 +90,7 @@ function addOnlyOpSeeBtnToTextEditeor() {
           return flarum_common_utils_styleSelectedText__WEBPACK_IMPORTED_MODULE_3___default()(_this.attrs.composer.editor.el, style);
         },
         icon: "fas fa-user-shield"
-      }, app.translator.trans("imdong-visible-to-op-only.forum.button_tooltip_only_op_see")));
+      }, (0,_common__WEBPACK_IMPORTED_MODULE_4__.trans)("forum.button_tooltip_only_op_see")));
     }
   });
 }
@@ -86,7 +120,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add(_common__WEBPACK_IMPORTED_MODULE_3__["default"].extPrefix, function () {
+flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add(_common__WEBPACK_IMPORTED_MODULE_3__.extPrefix, function () {
   // 添加按钮到工具栏
   (0,_addOnlyOpSeeBtnToTextEditeor__WEBPACK_IMPORTED_MODULE_5__["default"])();
 
@@ -98,7 +132,7 @@ flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add(_common
     if (/\[OP\]\s*\[\/OP\]/.test(content)) {
       flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().alerts.show({
         type: "error"
-      }, flarum_forum_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans('imdong-visible-to-op-only.forum.editor_empty_tips'));
+      }, (0,_common__WEBPACK_IMPORTED_MODULE_3__.trans)('forum.editor_empty_tips'));
       return false;
     }
     original();
@@ -122,42 +156,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_common_extend__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var flarum_common_models_Post__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flarum/common/models/Post */ "flarum/common/models/Post");
 /* harmony import */ var flarum_common_models_Post__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flarum_common_models_Post__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var flarum_forum_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flarum/forum/app */ "flarum/forum/app");
-/* harmony import */ var flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_forum_app__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common */ "./src/common/index.ts");
 
 
 
 function onlyOpSee(innerHTML, canViewHidePosts) {
-  // console.log(innerHTML, canViewHidePosts)
-  return innerHTML.replace(/<onlyopsee>(.*?)<\/onlyopsee>/g, function (full, text) {
-    return canViewHidePosts ? allow(text) : deny();
+  return innerHTML.replace(/<onlyopsee>([\s\S]*?)<\/onlyopsee>/gi, function (full, text) {
+    return render(canViewHidePosts, text);
   });
 }
-function allow(text) {
-  var title = flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('imdong-visible-to-op-only.forum.only_op_see');
-  return "<div class=\"onlyopsee\"><div class=\"onlyopsee_title\">" + title + "</div>" + text + "</div>";
-}
-function deny() {
-  var title = flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('imdong-visible-to-op-only.forum.hidden_content_only_op_see');
-  return "<div class=\"onlyopsee\"><div class=\"onlyopsee_alert\">" + title + "</div></div>";
+function render(canViewHidePosts, text) {
+  var title = (0,_common__WEBPACK_IMPORTED_MODULE_2__.trans)(canViewHidePosts ? "forum.only_op_see" : 'forum.hidden_content_only_op_see');
+  return "<div class=\"onlyopsee\" data-title-content=\"" + title + "\" >" + text + "</div>";
 }
 function renderOnlyOpSee() {
   (0,flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__.override)((flarum_common_models_Post__WEBPACK_IMPORTED_MODULE_1___default().prototype), 'contentHtml', function (original, content) {
-    // console.log(this.attribute('content', 'contentHtml'))
-
     // 如果不能看见正文 就直接给拒绝文案
     if (!this.attribute('canViewPosts')) {
-      return deny();
+      return render(false);
     }
 
     // 否则替换正文
     return onlyOpSee(original(), this.attribute('canViewHidePosts'));
   });
+
+  // 预览时
   (0,flarum_common_extend__WEBPACK_IMPORTED_MODULE_0__.override)(s9e.TextFormatter, 'preview', function (original, text, element) {
     original(text, element);
     element.innerHTML = onlyOpSee(element.innerHTML, true);
   });
 }
+
+/***/ }),
+
+/***/ "flarum/common/app":
+/*!***************************************************!*\
+  !*** external "flarum.core.compat['common/app']" ***!
+  \***************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = flarum.core.compat['common/app'];
 
 /***/ }),
 
@@ -314,6 +353,11 @@ var __webpack_exports__ = {};
   !*** ./forum.ts ***!
   \******************/
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   extPrefix: () => (/* reexport safe */ _src_common__WEBPACK_IMPORTED_MODULE_0__.extPrefix),
+/* harmony export */   key: () => (/* reexport safe */ _src_common__WEBPACK_IMPORTED_MODULE_0__.key),
+/* harmony export */   trans: () => (/* reexport safe */ _src_common__WEBPACK_IMPORTED_MODULE_0__.trans)
+/* harmony export */ });
 /* harmony import */ var _src_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/common */ "./src/common/index.ts");
 /* harmony import */ var _src_forum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/forum */ "./src/forum/index.tsx");
 

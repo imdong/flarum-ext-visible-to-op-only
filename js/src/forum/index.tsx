@@ -1,11 +1,11 @@
 import app from 'flarum/forum/app';
 import {override} from "flarum/common/extend";
 import ReplyComposer from "flarum/forum/components/ReplyComposer";
-import common from "../common";
+import {extPrefix, trans} from "../common";
 import renderOnlyOpSee from "./renderOnlyOpSee";
 import addOnlyOpSeeBtnToTextEditeor from "./addOnlyOpSeeBtnToTextEditeor";
 
-app.initializers.add(common.extPrefix, () => {
+app.initializers.add(extPrefix, () => {
 
   // 添加按钮到工具栏
   addOnlyOpSeeBtnToTextEditeor()
@@ -18,7 +18,7 @@ app.initializers.add(common.extPrefix, () => {
     if (/\[OP\]\s*\[\/OP\]/.test(content)) {
       app.alerts.show({
         type: "error",
-      }, app.translator.trans('imdong-visible-to-op-only.forum.editor_empty_tips'));
+      }, trans('forum.editor_empty_tips'));
       return false
     }
 

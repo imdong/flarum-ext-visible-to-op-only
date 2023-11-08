@@ -50,10 +50,42 @@ flarum_admin_app__WEBPACK_IMPORTED_MODULE_0___default().initializers.add(_common
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   extPrefix: () => (/* binding */ extPrefix),
+/* harmony export */   key: () => (/* binding */ key),
+/* harmony export */   trans: () => (/* binding */ trans)
 /* harmony export */ });
+/* harmony import */ var flarum_common_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flarum/common/app */ "flarum/common/app");
+/* harmony import */ var flarum_common_app__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flarum_common_app__WEBPACK_IMPORTED_MODULE_0__);
+
+/**
+ * 统一前缀
+ */
+var extPrefix = 'imdong-visible-to-op-only';
+
+/**
+ * 获取一个 key
+ * @param key
+ */
+function key(key) {
+  return extPrefix + "." + key.replace(/^\.*/, '');
+}
+
+/**
+ * 获取特定 key 的翻译
+ * @param id
+ * @param parameters
+ */
+function trans(id, parameters) {
+  if (parameters === void 0) {
+    parameters = {};
+  }
+  return flarum_common_app__WEBPACK_IMPORTED_MODULE_0___default().translator.trans(key(id), parameters);
+}
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  extPrefix: 'imdong-visible-to-op-only'
+  extPrefix: extPrefix,
+  key: key,
+  trans: trans
 });
 
 /***/ }),
@@ -66,6 +98,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 module.exports = flarum.core.compat['admin/app'];
+
+/***/ }),
+
+/***/ "flarum/common/app":
+/*!***************************************************!*\
+  !*** external "flarum.core.compat['common/app']" ***!
+  \***************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = flarum.core.compat['common/app'];
 
 /***/ })
 
@@ -145,6 +188,11 @@ var __webpack_exports__ = {};
   !*** ./admin.ts ***!
   \******************/
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   extPrefix: () => (/* reexport safe */ _src_common__WEBPACK_IMPORTED_MODULE_0__.extPrefix),
+/* harmony export */   key: () => (/* reexport safe */ _src_common__WEBPACK_IMPORTED_MODULE_0__.key),
+/* harmony export */   trans: () => (/* reexport safe */ _src_common__WEBPACK_IMPORTED_MODULE_0__.trans)
+/* harmony export */ });
 /* harmony import */ var _src_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/common */ "./src/common/index.ts");
 /* harmony import */ var _src_admin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/admin */ "./src/admin/index.ts");
 

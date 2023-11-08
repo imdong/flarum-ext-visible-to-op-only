@@ -2,6 +2,7 @@ import {extend} from "flarum/common/extend";
 import TextEditor from "flarum/common/components/TextEditor";
 import TextEditorButton from "flarum/common/components/TextEditorButton";
 import styleSelectedText from 'flarum/common/utils/styleSelectedText';
+import {trans} from "../common";
 
 const style = {prefix: '[OP]', suffix: '[/OP]', trimFirst: true};
 
@@ -14,7 +15,7 @@ export default function addOnlyOpSeeBtnToTextEditeor() {
           onclick={() => styleSelectedText(this.attrs.composer.editor.el, style)}
           icon="fas fa-user-shield"
         >
-          {app.translator.trans("imdong-visible-to-op-only.forum.button_tooltip_only_op_see")}
+          {trans("forum.button_tooltip_only_op_see")}
         </TextEditorButton>
       );
     }

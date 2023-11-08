@@ -91,7 +91,7 @@ class PostAttributes
 
         // 替换隐藏部分内容
         $attributes["contentHtml"] = preg_replace(
-            '#<onlyopsee>(.*?)<\/onlyopsee>#',
+            '#<onlyopsee>(.*?)<\/onlyopsee>#is',
             '<onlyopsee></onlyopsee>',
             $attributes["contentHtml"]
         );

@@ -8,6 +8,9 @@ const style = {prefix: '[OP]', suffix: '[/OP]', trimFirst: true};
 
 export default function addOnlyOpSeeBtnToTextEditeor() {
   extend(TextEditor.prototype, 'toolbarItems', function (items) {
+    if (!app.session.user.attribute('canVisibleToOpPermissionsViewButton')) {
+      return;
+    }
     if (app.composer.body.attrs.discussion || app.composer.body.attrs.post) {
       items.add(
         "only-op-see",

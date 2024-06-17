@@ -12,9 +12,12 @@
 namespace ImDong\FlarumExtVisibleToOpOnly;
 
 use Flarum\Api\Serializer\BasicPostSerializer;
+use Flarum\Api\Serializer\BasicUserSerializer;
 use Flarum\Extend;
+use ImDong\FlarumExtVisibleToOpOnly\Attributes\AddUserAttributes;
 use ImDong\FlarumExtVisibleToOpOnly\Attributes\PostAttributes;
 use s9e\TextFormatter\Configurator;
+use ImDong\FlarumExtVisibleToOpOnly\Middleware\SendOpAuthMiddleware;
 
 return [
     (new Extend\Frontend('forum'))
@@ -27,9 +30,15 @@ return [
     // 语言支持
     new Extend\Locales(__DIR__ . '/locale'),
 
+    (new Extend\Middleware("api"))
+        ->add(SendOpAuthMiddleware::class),
+
     // 给主题添加是否能查看 post 的权限
     (new Extend\ApiSerializer(BasicPostSerializer::class))
         ->attributes(PostAttributes::class),
+
+    (new Extend\ApiSerializer(BasicUserSerializer::class))
+        ->attributes(AddUserAttributes::class),
 
     // 添加 [OP] 代码支持
     (new Extend\Formatter)
@@ -39,4 +48,7 @@ return [
                 '<onlyOpSee>{TEXT}</onlyOpSee>'
             );
         }),
+
+    (new Extend\Settings())
+        ->serializeToForum('imdong-visible-to-op-only.admin.permissions.view-button', 'imdong-visible-to-op-only.admin.permissions.view-button'),
 ];

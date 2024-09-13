@@ -34,7 +34,7 @@ return [
     // 添加 [OP] 代码支持
     (new Extend\Formatter)
         ->configure(function (Configurator $config) {
-            $config->BBcodes->addCustom(
+            $config->BBCodes->addCustom(
                 '[OP]{TEXT}[/OP]',
                 '<onlyOpSee>{TEXT}</onlyOpSee>'
             );

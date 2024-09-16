@@ -23,6 +23,15 @@ app.initializers.add(common.extPrefix, () => {
       },
       'start'
     )
+    // 添加权限 使用权限
+    .registerPermission(
+      {
+        icon: 'far fa-eye',
+        label: app.translator.trans(common.extPrefix + '.admin.permissions.view-button'),
+        permission: `discussion.${common.extPrefix}.viewButton`,
+      },
+      'moderate'
+    )
     // 注册配置 允许查看置顶帖
     .registerSetting({
       setting: common.extPrefix + '.allowViewSticky',

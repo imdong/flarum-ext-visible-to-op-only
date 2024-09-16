@@ -41,6 +41,9 @@ class PostAttributes
         // 是否有查看隐藏内容的权限
         $canViewHidePosts = $actor->can('.' . Defined::$extPrefix . '.ViewHidePosts', $discussion);
 
+        // 是否有使用仅楼主可见功能的权限
+        $canViewButton = $actor->can(Defined::$extPrefix . '.viewButton', $discussion);
+
         // 如果自己是作者也可以看
         if ($actor->id == $post->user_id || $discussion->user_id == $actor->id) {
             $canViewPosts = true;
@@ -58,6 +61,7 @@ class PostAttributes
 
         $attributes['canViewPosts'] = $canViewPosts;
         $attributes['canViewHidePosts'] = $canViewHidePosts;
+        $attributes['canVisibleToOpPermissionsViewButton'] = $canViewButton;
 
         // 如果不允许看到回复内容则直接屏蔽掉
         if (!$canViewPosts) {

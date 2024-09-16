@@ -3,6 +3,7 @@ imdong-visible-to-op-only:
     permissions:
       view-post: View Post
       view-hide-post: View hidden content
+      view-button: Display button
     settings:
       allow-view-sticky: Allow view Sticky
       allow-view-sticky-text: Under the label that prohibits viewing the reply, you can also view the reply content posted on the top, which needs to be used with plug-in Stickiest & & Sticky (negligible)

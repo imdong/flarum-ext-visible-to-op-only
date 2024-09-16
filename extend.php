@@ -12,8 +12,16 @@
 namespace ImDong\FlarumExtVisibleToOpOnly;
 
 use Flarum\Api\Serializer\BasicPostSerializer;
+use Flarum\Api\Serializer\BasicUserSerializer;
 use Flarum\Extend;
+use Flarum\Post\Event\Saving as PostSaving;
+use Flarum\Post\Event\Posted;
+use Flarum\Tags\Api\Serializer\TagSerializer;
+use ImDong\FlarumExtVisibleToOpOnly\Attributes\AddUserAttributes;
 use ImDong\FlarumExtVisibleToOpOnly\Attributes\PostAttributes;
+use ImDong\FlarumExtVisibleToOpOnly\Attributes\TagSubscriptionAttribute;
+use ImDong\FlarumExtVisibleToOpOnly\Listener\AddPostSendOpAuthListener;
+use ImDong\FlarumExtVisibleToOpOnly\Listener\EditPostSendOpAuthListener;
 use s9e\TextFormatter\Configurator;
 
 return [
@@ -27,9 +35,16 @@ return [
     // 语言支持
     new Extend\Locales(__DIR__ . '/locale'),
 
+    (new Extend\Event())
+        ->listen(PostSaving::class, EditPostSendOpAuthListener::class)
+        ->listen(Posted::class, AddPostSendOpAuthListener::class),
+
     // 给主题添加是否能查看 post 的权限
     (new Extend\ApiSerializer(BasicPostSerializer::class))
         ->attributes(PostAttributes::class),
+
+    (new Extend\ApiSerializer(BasicUserSerializer::class))
+        ->attributes(AddUserAttributes::class),
 
     // 添加 [OP] 代码支持
     (new Extend\Formatter)
@@ -39,4 +54,7 @@ return [
                 '<onlyOpSee>{TEXT}</onlyOpSee>'
             );
         }),
+
+    (new Extend\Settings())
+        ->serializeToForum('imdong-visible-to-op-only.admin.permissions.view-button', 'imdong-visible-to-op-only.admin.permissions.view-button'),
 ];

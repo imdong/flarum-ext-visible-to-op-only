@@ -3,6 +3,7 @@ imdong-visible-to-op-only:
     permissions:
       view-post: 查看回复
       view-hide-post: 查看隐藏内容
+      view-button: 显示按钮
     settings:
       allow-view-sticky: 允许查看置顶帖
       allow-view-sticky-text: 在禁止查看回复的标签下，也可以查看置顶贴的回复内容，需搭配插件 Stickiest && Sticky 使用 (可忽略)
